@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Emoji Plugin</title>
     <style>
@@ -9,36 +10,46 @@
             display: flex;
             flex-direction: column;
         }
+
         /* Styling for the emoji grid and buttons */
         #emojiGrid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
             gap: 16px;
             padding: 16px 24px;
-            max-height: 600px; /* Adjust based on your needs */
-            overflow-y: auto; /* Enables vertical scrolling */
+            max-height: 600px;
+            /* Adjust based on your needs */
+            overflow-y: auto;
+            /* Enables vertical scrolling */
         }
+
         /* Style the scrollbar track (background) */
-#emojiGrid::-webkit-scrollbar-track {
-    background-color: #f0f0f0; /* Light grey background */
-    border-radius: 10px; /* Optional: adds rounded corners to the track */
-}
+        #emojiGrid::-webkit-scrollbar-track {
+            background-color: #f0f0f0;
+            /* Light grey background */
+            border-radius: 10px;
+            /* Optional: adds rounded corners to the track */
+        }
 
-/* Style the scrollbar handle */
-#emojiGrid::-webkit-scrollbar-thumb {
-    background-color: #c0c0c0; /* Darker grey scrollbar handle */
-    border-radius: 10px; /* Rounded corners for the handle */
-}
+        /* Style the scrollbar handle */
+        #emojiGrid::-webkit-scrollbar-thumb {
+            background-color: #c0c0c0;
+            /* Darker grey scrollbar handle */
+            border-radius: 10px;
+            /* Rounded corners for the handle */
+        }
 
-/* Optional: Style the scrollbar handle on hover */
-#emojiGrid::-webkit-scrollbar-thumb:hover {
-    background-color: #a0a0a0; /* Slightly darker on hover */
-}
+        /* Optional: Style the scrollbar handle on hover */
+        #emojiGrid::-webkit-scrollbar-thumb:hover {
+            background-color: #a0a0a0;
+            /* Slightly darker on hover */
+        }
 
-/* Style the scrollbar width */
-#emojiGrid::-webkit-scrollbar {
-    width: 8px; /* Adjust the width of the scrollbar */
-}
+        /* Style the scrollbar width */
+        #emojiGrid::-webkit-scrollbar {
+            width: 8px;
+            /* Adjust the width of the scrollbar */
+        }
 
 
 
@@ -48,71 +59,80 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
         }
+
         .emoji-button:hover {
             background-color: #f1f1f1;
         }
+
         #searchBar {
             font-family: Inter;
             font-size: 14px;
             margin: 16px;
         }
+
         #outputSize {
             font-family: Inter;
             font-size: 14px;
             margin: 16px;
         }
+
         #controlsContainer {
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    top: 0;
-    background-color: white;
-    z-index: 1000;
-    padding: 0;
-    border-bottom: 1px solid #eee; /* Optional: adds a line below the sticky container */
-}
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            top: 0;
+            background-color: white;
+            z-index: 1000;
+            padding: 0;
+            border-bottom: 1px solid #eee;
+            /* Optional: adds a line below the sticky container */
+        }
     </style>
 </head>
+
 <body>
     <div id="controlsContainer">
-    <div id="searchBar">
-        <input type="text" id="emojiSearch" placeholder="Search for an emoji">
+        <div id="searchBar">
+            <input type="text" id="emojiSearch" placeholder="Search for an emoji">
+        </div>
+        <div id="sizeSelector">
+            <label for="outputSize">Output Size:</label>
+            <select id="outputSize">
+                <option value=32>32px</option>
+                <option value=48>48px</option>
+                <option value=64 selected>64px</option>
+                <option value=128>128px</option>
+                <option value=256>256px</option>
+                <option value=512>512px</option>
+            </select>
+        </div>
     </div>
-    <div id="sizeSelector">
-        <label for="outputSize">Output Size:</label>
-        <select id="outputSize">
-            <option value=32>32px</option>
-            <option value=48>48px</option>
-            <option value=64 selected>64px</option>
-            <option value=128>128px</option>
-            <option value=256>256px</option>
-            <option value=512>512px</option>
-        </select>
-    </div>
-</div>
     <div id="emojiGrid">
         <!-- Emojis will be added here -->
     </div>
 
     <script>
-        const emojis = [{"n": "Confetti-ball", "img": "1f38a"}, {"n": "Balloon", "img": "1f388"}, {"n": "Birthday-cake", "img": "1f382"}, {"n": "Wrapped-gift", "img": "1f381"}, {"n": "Fireworks", "img": "1f386"}, {"n": "Pi\u00c3\u00b1ata", "img": "1fa85"}, {"n": "Mirror-ball", "img": "1faa9"}, {"n": "Soccer-ball", "img": "26bd"}, {"n": "Baseball", "img": "26be"}, {"n": "Softball", "img": "1f94e"}, {"n": "Tennis", "img": "1f3be"}, {"n": "Badminton", "img": "1f3f8"}, {"n": "Lacrosse", "img": "1f94d"}, {"n": "Cricket-game", "img": "1f3cf"}, {"n": "Field-hockey", "img": "1f3d1"}, {"n": "Ice-hockey", "img": "1f3d2"}, {"n": "Direct-hit", "img": "1f3af"}, {"n": "Flying-disc", "img": "1f94f"}, {"n": "Boomerang", "img": "1fa83"}, {"n": "Kite", "img": "1fa81"}, {"n": "Ping-pong", "img": "1f3d3"}, {"n": "Bowling", "img": "1f3b3"}, {"n": "Die", "img": "1f3b2"}, {"n": "Slot-machine", "img": "1f3b0"}, {"n": "Camera-flash", "img": "1f4f8"}, {"n": "Violin", "img": "1f3bb"}, {"n": "Drum", "img": "1f941"}, {"n": "Maracas", "img": "1fa87"}, {"n": "Rose", "img": "1f339"}, {"n": "Wilted-flower", "img": "1f940"}, {"n": "Fallen-leaf", "img": "1f342"}, {"n": "Plant", "img": "1f331"}, {"n": "Leaves", "img": "1f343"}, {"n": "Luck", "img": "1f340"}, {"n": "Snowflake", "img": "2744_fe0f"}, {"n": "Volcano", "img": "1f30b"}, {"n": "Sunrise", "img": "1f305"}, {"n": "Sunrise-over-mountains", "img": "1f304"}, {"n": "Rainbow", "img": "1f308"}, {"n": "Bubbles", "img": "1fae7"}, {"n": "Ocean", "img": "1f30a"}, {"n": "Wind-face", "img": "1f32c_fe0f"}, {"n": "Tornado", "img": "1f32a_fe0f"}, {"n": "Electricity", "img": "26a1"}, {"n": "Droplet", "img": "1f4a7"}, {"n": "Rain-cloud", "img": "1f327_fe0f"}, {"n": "Cloud-with-lightning", "img": "1f329_fe0f"}, {"n": "Dizzy", "img": "1f4ab"}, {"n": "Comet", "img": "2604_fe0f"}, {"n": "Globe-showing-europe-africa", "img": "1f30d"}, {"n": "Globe-showing-americas", "img": "1f30e"}, {"n": "Globe-showing-asia-australia", "img": "1f30f"}, {"n": "Cow-face", "img": "1f42e"}, {"n": "Unicorn", "img": "1f984"}, {"n": "Lizard", "img": "1f98e"}, {"n": "Dragon", "img": "1f409"}, {"n": "T-rex", "img": "1f996"}, {"n": "Dinosaur", "img": "1f995"}, {"n": "Turtle", "img": "1f422"}, {"n": "Crocodile", "img": "1f40a"}, {"n": "Snake", "img": "1f40d"}, {"n": "Frog", "img": "1f438"}, {"n": "Rabbit", "img": "1f407"}, {"n": "Rat", "img": "1f400"}, {"n": "Poodle", "img": "1f429"}, {"n": "Dog", "img": "1f415"}, {"n": "Guide-dog", "img": "1f9ae"}, {"n": "Service-dog", "img": "1f415_200d_1f9ba"}, {"n": "Pig", "img": "1f416"}, {"n": "Racehorse", "img": "1f40e"}, {"n": "Donkey", "img": "1facf"}, {"n": "Ox", "img": "1f402"}, {"n": "Goat", "img": "1f410"}, {"n": "Kangaroo", "img": "1f998"}, {"n": "Tiger", "img": "1f405"}, {"n": "Monkey", "img": "1f412"}, {"n": "Gorilla", "img": "1f98d"}, {"n": "Orangutan", "img": "1f9a7"}, {"n": "Chipmunk", "img": "1f43f_fe0f"}, {"n": "Otter", "img": "1f9a6"}, {"n": "Bat", "img": "1f987"}, {"n": "Bird", "img": "1f426"}, {"n": "Black-bird", "img": "1f426_200d_2b1b"}, {"n": "Rooster", "img": "1f413"}, {"n": "Hatching-chick", "img": "1f423"}, {"n": "Baby-chick", "img": "1f424"}, {"n": "Hatched-chick", "img": "1f425"}, {"n": "Eagle", "img": "1f985"}, {"n": "Peace", "img": "1f54a_fe0f"}, {"n": "Goose", "img": "1fabf"}, {"n": "Peacock", "img": "1f99a"}, {"n": "Seal", "img": "1f9ad"}, {"n": "Shark", "img": "1f988"}, {"n": "Dolphin", "img": "1f42c"}, {"n": "Whale", "img": "1f433"}, {"n": "Blowfish", "img": "1f421"}, {"n": "Crab", "img": "1f980"}, {"n": "Octopus", "img": "1f419"}, {"n": "Jellyfish", "img": "1fabc"}, {"n": "Spider", "img": "1f577_fe0f"}, {"n": "Snail", "img": "1f40c"}, {"n": "Ant", "img": "1f41c"}, {"n": "Mosquito", "img": "1f99f"}, {"n": "Cockroach", "img": "1fab3"}, {"n": "Fly", "img": "1fab0"}, {"n": "Bee", "img": "1f41d"}, {"n": "Lady-bug", "img": "1f41e"}, {"n": "Butterfly", "img": "1f98b"}, {"n": "Bug", "img": "1f41b"}, {"n": "Worm", "img": "1fab1"}, {"n": "Paw Prints", "img": "1f43e"}, {"n": "Chequered-flag", "img": "1f3c1"}, {"n": "Triangular-flag", "img": "1f6a9"}, {"n": "Black-flag", "img": "1f3f4"}, {"n": "White-flag", "img": "1f3f3_fe0f"}, {"n": "Tomato", "img": "1f345"}, {"n": "Cooking", "img": "1f373"}, {"n": "Spaghetti", "img": "1f35d"}, {"n": "Steaming-bowl", "img": "1f35c"}, {"n": "Popcorn", "img": "1f37f"}, {"n": "Hot-beverage", "img": "2615"}, {"n": "Clinking-beer-mugs", "img": "1f37b"}, {"n": "Clinking-glasses", "img": "1f942"}, {"n": "Bottle-with-popping-cork", "img": "1f37e"}, {"n": "Wine-glass", "img": "1f377"}, {"n": "Tropical-drink", "img": "1f379"}, {"n": "Battery-full", "img": "1f50b"}, {"n": "Battery-low", "img": "1faab"}, {"n": "Money-with-wings", "img": "1f4b8"}, {"n": "Balance-scale", "img": "2696_fe0f"}, {"n": "Light-bulb", "img": "1f4a1"}, {"n": "Graduation-cap", "img": "1f393"}, {"n": "Umbrella", "img": "2602_fe0f"}, {"n": "Gem-stone", "img": "1f48e"}, {"n": "Gear", "img": "2699_fe0f"}, {"n": "Pencil", "img": "270f_fe0f"}, {"n": "Alarm-clock", "img": "23f0"}, {"n": "Bellhop-bell", "img": "1f6ce_fe0f"}, {"n": "Bell", "img": "1f514"}, {"n": "Crystal-ball", "img": "1f52e"}, {"n": "Dancer-woman", "img": "1f483"}, {"n": "Dancer-woman", "img": "1f483_1f3fb"}, {"n": "Dancer-woman", "img": "1f483_1f3fc"}, {"n": "Dancer-woman", "img": "1f483_1f3fd"}, {"n": "Dancer-woman", "img": "1f483_1f3fe"}, {"n": "Dancer-woman", "img": "1f483_1f3ff"}, {"n": "Smile", "img": "1f600"}, {"n": "Smile-with-big-eyes", "img": "1f603"}, {"n": "Grin", "img": "1f604"}, {"n": "Grinning", "img": "1f601"}, {"n": "Laughing", "img": "1f606"}, {"n": "Grin-sweat", "img": "1f605"}, {"n": "Joy", "img": "1f602"}, {"n": "Rofl", "img": "1f923"}, {"n": "Loudly-crying", "img": "1f62d"}, {"n": "Wink", "img": "1f609"}, {"n": "Kissing", "img": "1f617"}, {"n": "Kissing-smiling-eyes", "img": "1f619"}, {"n": "Kissing-closed-eyes", "img": "1f61a"}, {"n": "Kissing-heart", "img": "1f618"}, {"n": "Heart-face", "img": "1f970"}, {"n": "Heart-eyes", "img": "1f60d"}, {"n": "Star-struck", "img": "1f929"}, {"n": "Partying-face", "img": "1f973"}, {"n": "Melting", "img": "1fae0"}, {"n": "Upside-down-face", "img": "1f643"}, {"n": "Slightly-happy", "img": "1f642"}, {"n": "Happy-cry", "img": "1f972"}, {"n": "Holding-back-tears", "img": "1f979"}, {"n": "Blush", "img": "1f60a"}, {"n": "Warm-smile", "img": "263a_fe0f"}, {"n": "Relieved", "img": "1f60c"}, {"n": "Smirk", "img": "1f60f"}, {"n": "Drool", "img": "1f924"}, {"n": "Yum", "img": "1f60b"}, {"n": "Stuck-out-tongue", "img": "1f61b"}, {"n": "Squinting-tongue", "img": "1f61d"}, {"n": "Winky-tongue", "img": "1f61c"}, {"n": "Zany-face", "img": "1f92a"}, {"n": "Woozy", "img": "1f974"}, {"n": "Pensive", "img": "1f614"}, {"n": "Pleading", "img": "1f97a"}, {"n": "Grimacing", "img": "1f62c"}, {"n": "Expressionless", "img": "1f611"}, {"n": "Neutral-face", "img": "1f610"}, {"n": "Mouth-none", "img": "1f636"}, {"n": "Face-in-clouds", "img": "1f636_200d_1f32b_fe0f"}, {"n": "Dotted-line-face", "img": "1fae5"}, {"n": "Zipper-face", "img": "1f910"}, {"n": "Salute", "img": "1fae1"}, {"n": "Thinking-face", "img": "1f914"}, {"n": "Shushing-face", "img": "1f92b"}, {"n": "Hand-over-mouth", "img": "1fae2"}, {"n": "Smiling-eyes-with-hand-over-mouth", "img": "1f92d"}, {"n": "Yawn", "img": "1f971"}, {"n": "Hug-face", "img": "1f917"}, {"n": "Peeking", "img": "1fae3"}, {"n": "Screaming", "img": "1f631"}, {"n": "Raised-eyebrow", "img": "1f928"}, {"n": "Monocle", "img": "1f9d0"}, {"n": "Unamused", "img": "1f612"}, {"n": "Rolling-eyes", "img": "1f644"}, {"n": "Exhale", "img": "1f62e_200d_1f4a8"}, {"n": "Triumph", "img": "1f624"}, {"n": "Angry", "img": "1f620"}, {"n": "Rage", "img": "1f621"}, {"n": "Cursing", "img": "1f92c"}, {"n": "Sad", "img": "1f61e"}, {"n": "Sweat", "img": "1f613"}, {"n": "Worried", "img": "1f61f"}, {"n": "Concerned", "img": "1f625"}, {"n": "Cry", "img": "1f622"}, {"n": "Big-frown", "img": "2639_fe0f"}, {"n": "Frown", "img": "1f641"}, {"n": "Diagonal-mouth", "img": "1fae4"}, {"n": "Slightly-frowning", "img": "1f615"}, {"n": "Anxious-with-sweat", "img": "1f630"}, {"n": "Scared", "img": "1f628"}, {"n": "Anguished", "img": "1f627"}, {"n": "Gasp", "img": "1f626"}, {"n": "Mouth-open", "img": "1f62e"}, {"n": "Surprised", "img": "1f62f"}, {"n": "Astonished", "img": "1f632"}, {"n": "Flushed", "img": "1f633"}, {"n": "Mind-blown", "img": "1f92f"}, {"n": "Scrunched-mouth", "img": "1f616"}, {"n": "Scrunched-eyes", "img": "1f623"}, {"n": "Weary", "img": "1f629"}, {"n": "Distraught", "img": "1f62b"}, {"n": "X-eyes", "img": "1f635"}, {"n": "Dizzy-face", "img": "1f635_200d_1f4ab"}, {"n": "Shaking-face", "img": "1fae8"}, {"n": "Cold-face", "img": "1f976"}, {"n": "Hot-face", "img": "1f975"}, {"n": "Sick", "img": "1f922"}, {"n": "Vomit", "img": "1f92e"}, {"n": "Sleep", "img": "1f634"}, {"n": "Sleepy", "img": "1f62a"}, {"n": "Sneeze", "img": "1f927"}, {"n": "Thermometer-face", "img": "1f912"}, {"n": "Bandage-face", "img": "1f915"}, {"n": "Mask", "img": "1f637"}, {"n": "Liar", "img": "1f925"}, {"n": "Halo", "img": "1f607"}, {"n": "Cowboy", "img": "1f920"}, {"n": "Money-face", "img": "1f911"}, {"n": "Nerd-face", "img": "1f913"}, {"n": "Sunglasses-face", "img": "1f60e"}, {"n": "Disguise", "img": "1f978"}, {"n": "Clown", "img": "1f921"}, {"n": "Imp-smile", "img": "1f608"}, {"n": "Imp-frown", "img": "1f47f"}, {"n": "Ghost", "img": "1f47b"}, {"n": "Skull", "img": "1f480"}, {"n": "Jack-o-lantern", "img": "1f383"}, {"n": "Poop", "img": "1f4a9"}, {"n": "Robot", "img": "1f916"}, {"n": "Alien", "img": "1f47d"}, {"n": "Sun-with-face", "img": "1f31e"}, {"n": "Moon-face-first-quarter", "img": "1f31b"}, {"n": "Moon-face-last-quarter", "img": "1f31c"}, {"n": "See-no-evil-monkey", "img": "1f648"}, {"n": "Hear-no-evil-monkey", "img": "1f649"}, {"n": "Speak-no-evil-monkey", "img": "1f64a"}, {"n": "Smiley-cat", "img": "1f63a"}, {"n": "Smile-cat", "img": "1f638"}, {"n": "Joy-cat", "img": "1f639"}, {"n": "Heart-eyes-cat", "img": "1f63b"}, {"n": "Smirk-cat", "img": "1f63c"}, {"n": "Kissing-cat", "img": "1f63d"}, {"n": "Scream-cat", "img": "1f640"}, {"n": "Crying-cat-face", "img": "1f63f"}, {"n": "Pouting-cat", "img": "1f63e"}, {"n": "Glowing-star", "img": "1f31f"}, {"n": "Sparkles", "img": "2728"}, {"n": "Collision", "img": "1f4a5"}, {"n": "Fire", "img": "1f525"}, {"n": "100", "img": "1f4af"}, {"n": "Party-popper", "img": "1f389"}, {"n": "Red-heart", "img": "2764_fe0f"}, {"n": "Orange-heart", "img": "1f9e1"}, {"n": "Yellow-heart", "img": "1f49b"}, {"n": "Green-heart", "img": "1f49a"}, {"n": "Light-blue-heart", "img": "1fa75"}, {"n": "Blue-heart", "img": "1f499"}, {"n": "Purple-heart", "img": "1f49c"}, {"n": "Brown-heart", "img": "1f90e"}, {"n": "Black-heart", "img": "1f5a4"}, {"n": "Grey-heart", "img": "1fa76"}, {"n": "White-heart", "img": "1f90d"}, {"n": "Pink-heart", "img": "1fa77"}, {"n": "Cupid", "img": "1f498"}, {"n": "Gift-heart", "img": "1f49d"}, {"n": "Sparkling-heart", "img": "1f496"}, {"n": "Heart-grow", "img": "1f497"}, {"n": "Beating-heart", "img": "1f493"}, {"n": "Revolving-hearts", "img": "1f49e"}, {"n": "Two-hearts", "img": "1f495"}, {"n": "Love-letter", "img": "1f48c"}, {"n": "Heart-box", "img": "1f49f"}, {"n": "Heart-exclamation-point", "img": "2763_fe0f"}, {"n": "Bandaged-heart", "img": "2764_fe0f_200d_1fa79"}, {"n": "Broken-heart", "img": "1f494"}, {"n": "Fire-heart", "img": "2764_fe0f_200d_1f525"}, {"n": "Kiss", "img": "1f48b"}, {"n": "Footprints", "img": "1f463"}, {"n": "Anatomical-heart", "img": "1fac0"}, {"n": "Blood", "img": "1fa78"}, {"n": "Microbe", "img": "1f9a0"}, {"n": "Eyes", "img": "1f440"}, {"n": "Eye", "img": "1f441_fe0f"}, {"n": "Biting-lip", "img": "1fae6"}, {"n": "Leg-mechanical", "img": "1f9bf"}, {"n": "Arm-mechanical", "img": "1f9be"}, {"n": "Muscle", "img": "1f4aa"}, {"n": "Muscle", "img": "1f4aa_1f3fb"}, {"n": "Muscle", "img": "1f4aa_1f3fc"}, {"n": "Muscle", "img": "1f4aa_1f3fd"}, {"n": "Muscle", "img": "1f4aa_1f3fe"}, {"n": "Muscle", "img": "1f4aa_1f3ff"}, {"n": "Clap", "img": "1f44f"}, {"n": "Clap", "img": "1f44f_1f3fb"}, {"n": "Clap", "img": "1f44f_1f3fc"}, {"n": "Clap", "img": "1f44f_1f3fd"}, {"n": "Clap", "img": "1f44f_1f3fe"}, {"n": "Clap", "img": "1f44f_1f3ff"}, {"n": "Thumbs-up", "img": "1f44d"}, {"n": "Thumbs-up", "img": "1f44d_1f3fb"}, {"n": "Thumbs-up", "img": "1f44d_1f3fc"}, {"n": "Thumbs-up", "img": "1f44d_1f3fd"}, {"n": "Thumbs-up", "img": "1f44d_1f3fe"}, {"n": "Thumbs-up", "img": "1f44d_1f3ff"}, {"n": "Thumbs-down", "img": "1f44e"}, {"n": "Thumbs-down", "img": "1f44e_1f3fb"}, {"n": "Thumbs-down", "img": "1f44e_1f3fc"}, {"n": "Thumbs-down", "img": "1f44e_1f3fd"}, {"n": "Thumbs-down", "img": "1f44e_1f3fe"}, {"n": "Thumbs-down", "img": "1f44e_1f3ff"}, {"n": "Raising-hands", "img": "1f64c"}, {"n": "Raising-hands", "img": "1f64c_1f3fb"}, {"n": "Raising-hands", "img": "1f64c_1f3fc"}, {"n": "Raising-hands", "img": "1f64c_1f3fd"}, {"n": "Raising-hands", "img": "1f64c_1f3fe"}, {"n": "Raising-hands", "img": "1f64c_1f3ff"}, {"n": "Wave", "img": "1f44b"}, {"n": "Wave", "img": "1f44b_1f3fb"}, {"n": "Wave", "img": "1f44b_1f3fc"}, {"n": "Wave", "img": "1f44b_1f3fd"}, {"n": "Wave", "img": "1f44b_1f3fe"}, {"n": "Wave", "img": "1f44b_1f3ff"}, {"n": "Victory", "img": "270c_fe0f"}, {"n": "Victory", "img": "270c_1f3fb"}, {"n": "Victory", "img": "270c_1f3fc"}, {"n": "Victory", "img": "270c_1f3fd"}, {"n": "Victory", "img": "270c_1f3fe"}, {"n": "Victory", "img": "270c_1f3ff"}, {"n": "Crossed-fingers", "img": "1f91e"}, {"n": "Crossed-fingers", "img": "1f91e_1f3fb"}, {"n": "Crossed-fingers", "img": "1f91e_1f3fc"}, {"n": "Crossed-fingers", "img": "1f91e_1f3fd"}, {"n": "Crossed-fingers", "img": "1f91e_1f3fe"}, {"n": "Crossed-fingers", "img": "1f91e_1f3ff"}, {"n": "Index-finger", "img": "261d_fe0f"}, {"n": "Index-finger", "img": "261d_1f3fb"}, {"n": "Index-finger", "img": "261d_1f3fc"}, {"n": "Index-finger", "img": "261d_1f3fd"}, {"n": "Index-finger", "img": "261d_1f3fe"}, {"n": "Index-finger", "img": "261d_1f3ff"}, {"n": "Folded-hands", "img": "1f64f"}, {"n": "Folded-hands", "img": "1f64f_1f3fb"}, {"n": "Folded-hands", "img": "1f64f_1f3fc"}, {"n": "Folded-hands", "img": "1f64f_1f3fd"}, {"n": "Folded-hands", "img": "1f64f_1f3fe"}, {"n": "Folded-hands", "img": "1f64f_1f3ff"}, {"n": "Aries", "img": "2648"}, {"n": "Taurus", "img": "2649"}, {"n": "Gemini", "img": "264a"}, {"n": "Cancer", "img": "264b"}, {"n": "Leo", "img": "264c"}, {"n": "Virgo", "img": "264d"}, {"n": "Libra", "img": "264e"}, {"n": "Scorpio", "img": "264f"}, {"n": "Sagittarius", "img": "2650"}, {"n": "Capricorn", "img": "2651"}, {"n": "Aquarius", "img": "2652"}, {"n": "Pisces", "img": "2653"}, {"n": "Ophiuchus", "img": "26ce"}, {"n": "Exclamation", "img": "2757"}, {"n": "Question", "img": "2753"}, {"n": "Exclamation-question-mark", "img": "2049_fe0f"}, {"n": "Exclamation-double", "img": "203c_fe0f"}, {"n": "Cross-mark", "img": "274c"}, {"n": "Sos", "img": "1f198"}, {"n": "Phone-off", "img": "1f4f4"}, {"n": "Check-mark", "img": "2705"}, {"n": "New", "img": "1f195"}, {"n": "Free", "img": "1f193"}, {"n": "Up!", "img": "1f199"}, {"n": "Cool", "img": "1f192"}, {"n": "Litter", "img": "1f6ae"}, {"n": "Musical-notes", "img": "1f3b6"}, {"n": "Plus-sign", "img": "2795"}, {"n": "Construction", "img": "1f6a7"}, {"n": "Police-car-light", "img": "1f6a8"}, {"n": "Bicycle", "img": "1f6b2"}, {"n": "Flying-saucer", "img": "1f6f8"}, {"n": "Rocket", "img": "1f680"}, {"n": "Airplane-departure", "img": "1f6eb"}, {"n": "Airplane-arrival", "img": "1f6ec"}, {"n": "Roller-coaster", "img": "1f3a2"}, {"n": "Camping", "img": "1f3d5_fe0f"}];
+        const emojis = [{ "n": "Confetti-ball", "img": "1f38a" }, { "n": "Balloon", "img": "1f388" }, { "n": "Birthday-cake", "img": "1f382" }, { "n": "Wrapped-gift", "img": "1f381" }, { "n": "Fireworks", "img": "1f386" }, { "n": "Pi\u00c3\u00b1ata", "img": "1fa85" }, { "n": "Mirror-ball", "img": "1faa9" }, { "n": "Soccer-ball", "img": "26bd" }, { "n": "Baseball", "img": "26be" }, { "n": "Softball", "img": "1f94e" }, { "n": "Tennis", "img": "1f3be" }, { "n": "Badminton", "img": "1f3f8" }, { "n": "Lacrosse", "img": "1f94d" }, { "n": "Cricket-game", "img": "1f3cf" }, { "n": "Field-hockey", "img": "1f3d1" }, { "n": "Ice-hockey", "img": "1f3d2" }, { "n": "Direct-hit", "img": "1f3af" }, { "n": "Flying-disc", "img": "1f94f" }, { "n": "Boomerang", "img": "1fa83" }, { "n": "Kite", "img": "1fa81" }, { "n": "Ping-pong", "img": "1f3d3" }, { "n": "Bowling", "img": "1f3b3" }, { "n": "Die", "img": "1f3b2" }, { "n": "Slot-machine", "img": "1f3b0" }, { "n": "Camera-flash", "img": "1f4f8" }, { "n": "Violin", "img": "1f3bb" }, { "n": "Drum", "img": "1f941" }, { "n": "Maracas", "img": "1fa87" }, { "n": "Rose", "img": "1f339" }, { "n": "Wilted-flower", "img": "1f940" }, { "n": "Fallen-leaf", "img": "1f342" }, { "n": "Plant", "img": "1f331" }, { "n": "Leaves", "img": "1f343" }, { "n": "Luck", "img": "1f340" }, { "n": "Snowflake", "img": "2744_fe0f" }, { "n": "Volcano", "img": "1f30b" }, { "n": "Sunrise", "img": "1f305" }, { "n": "Sunrise-over-mountains", "img": "1f304" }, { "n": "Rainbow", "img": "1f308" }, { "n": "Bubbles", "img": "1fae7" }, { "n": "Ocean", "img": "1f30a" }, { "n": "Wind-face", "img": "1f32c_fe0f" }, { "n": "Tornado", "img": "1f32a_fe0f" }, { "n": "Electricity", "img": "26a1" }, { "n": "Droplet", "img": "1f4a7" }, { "n": "Rain-cloud", "img": "1f327_fe0f" }, { "n": "Cloud-with-lightning", "img": "1f329_fe0f" }, { "n": "Dizzy", "img": "1f4ab" }, { "n": "Comet", "img": "2604_fe0f" }, { "n": "Globe-showing-europe-africa", "img": "1f30d" }, { "n": "Globe-showing-americas", "img": "1f30e" }, { "n": "Globe-showing-asia-australia", "img": "1f30f" }, { "n": "Cow-face", "img": "1f42e" }, { "n": "Unicorn", "img": "1f984" }, { "n": "Lizard", "img": "1f98e" }, { "n": "Dragon", "img": "1f409" }, { "n": "T-rex", "img": "1f996" }, { "n": "Dinosaur", "img": "1f995" }, { "n": "Turtle", "img": "1f422" }, { "n": "Crocodile", "img": "1f40a" }, { "n": "Snake", "img": "1f40d" }, { "n": "Frog", "img": "1f438" }, { "n": "Rabbit", "img": "1f407" }, { "n": "Rat", "img": "1f400" }, { "n": "Poodle", "img": "1f429" }, { "n": "Dog", "img": "1f415" }, { "n": "Guide-dog", "img": "1f9ae" }, { "n": "Service-dog", "img": "1f415_200d_1f9ba" }, { "n": "Pig", "img": "1f416" }, { "n": "Racehorse", "img": "1f40e" }, { "n": "Donkey", "img": "1facf" }, { "n": "Ox", "img": "1f402" }, { "n": "Goat", "img": "1f410" }, { "n": "Kangaroo", "img": "1f998" }, { "n": "Tiger", "img": "1f405" }, { "n": "Monkey", "img": "1f412" }, { "n": "Gorilla", "img": "1f98d" }, { "n": "Orangutan", "img": "1f9a7" }, { "n": "Chipmunk", "img": "1f43f_fe0f" }, { "n": "Otter", "img": "1f9a6" }, { "n": "Bat", "img": "1f987" }, { "n": "Bird", "img": "1f426" }, { "n": "Black-bird", "img": "1f426_200d_2b1b" }, { "n": "Rooster", "img": "1f413" }, { "n": "Hatching-chick", "img": "1f423" }, { "n": "Baby-chick", "img": "1f424" }, { "n": "Hatched-chick", "img": "1f425" }, { "n": "Eagle", "img": "1f985" }, { "n": "Peace", "img": "1f54a_fe0f" }, { "n": "Goose", "img": "1fabf" }, { "n": "Peacock", "img": "1f99a" }, { "n": "Seal", "img": "1f9ad" }, { "n": "Shark", "img": "1f988" }, { "n": "Dolphin", "img": "1f42c" }, { "n": "Whale", "img": "1f433" }, { "n": "Blowfish", "img": "1f421" }, { "n": "Crab", "img": "1f980" }, { "n": "Octopus", "img": "1f419" }, { "n": "Jellyfish", "img": "1fabc" }, { "n": "Spider", "img": "1f577_fe0f" }, { "n": "Snail", "img": "1f40c" }, { "n": "Ant", "img": "1f41c" }, { "n": "Mosquito", "img": "1f99f" }, { "n": "Cockroach", "img": "1fab3" }, { "n": "Fly", "img": "1fab0" }, { "n": "Bee", "img": "1f41d" }, { "n": "Lady-bug", "img": "1f41e" }, { "n": "Butterfly", "img": "1f98b" }, { "n": "Bug", "img": "1f41b" }, { "n": "Worm", "img": "1fab1" }, { "n": "Paw Prints", "img": "1f43e" }, { "n": "Chequered-flag", "img": "1f3c1" }, { "n": "Triangular-flag", "img": "1f6a9" }, { "n": "Black-flag", "img": "1f3f4" }, { "n": "White-flag", "img": "1f3f3_fe0f" }, { "n": "Tomato", "img": "1f345" }, { "n": "Cooking", "img": "1f373" }, { "n": "Spaghetti", "img": "1f35d" }, { "n": "Steaming-bowl", "img": "1f35c" }, { "n": "Popcorn", "img": "1f37f" }, { "n": "Hot-beverage", "img": "2615" }, { "n": "Clinking-beer-mugs", "img": "1f37b" }, { "n": "Clinking-glasses", "img": "1f942" }, { "n": "Bottle-with-popping-cork", "img": "1f37e" }, { "n": "Wine-glass", "img": "1f377" }, { "n": "Tropical-drink", "img": "1f379" }, { "n": "Battery-full", "img": "1f50b" }, { "n": "Battery-low", "img": "1faab" }, { "n": "Money-with-wings", "img": "1f4b8" }, { "n": "Balance-scale", "img": "2696_fe0f" }, { "n": "Light-bulb", "img": "1f4a1" }, { "n": "Graduation-cap", "img": "1f393" }, { "n": "Umbrella", "img": "2602_fe0f" }, { "n": "Gem-stone", "img": "1f48e" }, { "n": "Gear", "img": "2699_fe0f" }, { "n": "Pencil", "img": "270f_fe0f" }, { "n": "Alarm-clock", "img": "23f0" }, { "n": "Bellhop-bell", "img": "1f6ce_fe0f" }, { "n": "Bell", "img": "1f514" }, { "n": "Crystal-ball", "img": "1f52e" }, { "n": "Dancer-woman", "img": "1f483" }, { "n": "Dancer-woman", "img": "1f483_1f3fb" }, { "n": "Dancer-woman", "img": "1f483_1f3fc" }, { "n": "Dancer-woman", "img": "1f483_1f3fd" }, { "n": "Dancer-woman", "img": "1f483_1f3fe" }, { "n": "Dancer-woman", "img": "1f483_1f3ff" }, { "n": "Smile", "img": "1f600" }, { "n": "Smile-with-big-eyes", "img": "1f603" }, { "n": "Grin", "img": "1f604" }, { "n": "Grinning", "img": "1f601" }, { "n": "Laughing", "img": "1f606" }, { "n": "Grin-sweat", "img": "1f605" }, { "n": "Joy", "img": "1f602" }, { "n": "Rofl", "img": "1f923" }, { "n": "Loudly-crying", "img": "1f62d" }, { "n": "Wink", "img": "1f609" }, { "n": "Kissing", "img": "1f617" }, { "n": "Kissing-smiling-eyes", "img": "1f619" }, { "n": "Kissing-closed-eyes", "img": "1f61a" }, { "n": "Kissing-heart", "img": "1f618" }, { "n": "Heart-face", "img": "1f970" }, { "n": "Heart-eyes", "img": "1f60d" }, { "n": "Star-struck", "img": "1f929" }, { "n": "Partying-face", "img": "1f973" }, { "n": "Melting", "img": "1fae0" }, { "n": "Upside-down-face", "img": "1f643" }, { "n": "Slightly-happy", "img": "1f642" }, { "n": "Happy-cry", "img": "1f972" }, { "n": "Holding-back-tears", "img": "1f979" }, { "n": "Blush", "img": "1f60a" }, { "n": "Warm-smile", "img": "263a_fe0f" }, { "n": "Relieved", "img": "1f60c" }, { "n": "Smirk", "img": "1f60f" }, { "n": "Drool", "img": "1f924" }, { "n": "Yum", "img": "1f60b" }, { "n": "Stuck-out-tongue", "img": "1f61b" }, { "n": "Squinting-tongue", "img": "1f61d" }, { "n": "Winky-tongue", "img": "1f61c" }, { "n": "Zany-face", "img": "1f92a" }, { "n": "Woozy", "img": "1f974" }, { "n": "Pensive", "img": "1f614" }, { "n": "Pleading", "img": "1f97a" }, { "n": "Grimacing", "img": "1f62c" }, { "n": "Expressionless", "img": "1f611" }, { "n": "Neutral-face", "img": "1f610" }, { "n": "Mouth-none", "img": "1f636" }, { "n": "Face-in-clouds", "img": "1f636_200d_1f32b_fe0f" }, { "n": "Dotted-line-face", "img": "1fae5" }, { "n": "Zipper-face", "img": "1f910" }, { "n": "Salute", "img": "1fae1" }, { "n": "Thinking-face", "img": "1f914" }, { "n": "Shushing-face", "img": "1f92b" }, { "n": "Hand-over-mouth", "img": "1fae2" }, { "n": "Smiling-eyes-with-hand-over-mouth", "img": "1f92d" }, { "n": "Yawn", "img": "1f971" }, { "n": "Hug-face", "img": "1f917" }, { "n": "Peeking", "img": "1fae3" }, { "n": "Screaming", "img": "1f631" }, { "n": "Raised-eyebrow", "img": "1f928" }, { "n": "Monocle", "img": "1f9d0" }, { "n": "Unamused", "img": "1f612" }, { "n": "Rolling-eyes", "img": "1f644" }, { "n": "Exhale", "img": "1f62e_200d_1f4a8" }, { "n": "Triumph", "img": "1f624" }, { "n": "Angry", "img": "1f620" }, { "n": "Rage", "img": "1f621" }, { "n": "Cursing", "img": "1f92c" }, { "n": "Sad", "img": "1f61e" }, { "n": "Sweat", "img": "1f613" }, { "n": "Worried", "img": "1f61f" }, { "n": "Concerned", "img": "1f625" }, { "n": "Cry", "img": "1f622" }, { "n": "Big-frown", "img": "2639_fe0f" }, { "n": "Frown", "img": "1f641" }, { "n": "Diagonal-mouth", "img": "1fae4" }, { "n": "Slightly-frowning", "img": "1f615" }, { "n": "Anxious-with-sweat", "img": "1f630" }, { "n": "Scared", "img": "1f628" }, { "n": "Anguished", "img": "1f627" }, { "n": "Gasp", "img": "1f626" }, { "n": "Mouth-open", "img": "1f62e" }, { "n": "Surprised", "img": "1f62f" }, { "n": "Astonished", "img": "1f632" }, { "n": "Flushed", "img": "1f633" }, { "n": "Mind-blown", "img": "1f92f" }, { "n": "Scrunched-mouth", "img": "1f616" }, { "n": "Scrunched-eyes", "img": "1f623" }, { "n": "Weary", "img": "1f629" }, { "n": "Distraught", "img": "1f62b" }, { "n": "X-eyes", "img": "1f635" }, { "n": "Dizzy-face", "img": "1f635_200d_1f4ab" }, { "n": "Shaking-face", "img": "1fae8" }, { "n": "Cold-face", "img": "1f976" }, { "n": "Hot-face", "img": "1f975" }, { "n": "Sick", "img": "1f922" }, { "n": "Vomit", "img": "1f92e" }, { "n": "Sleep", "img": "1f634" }, { "n": "Sleepy", "img": "1f62a" }, { "n": "Sneeze", "img": "1f927" }, { "n": "Thermometer-face", "img": "1f912" }, { "n": "Bandage-face", "img": "1f915" }, { "n": "Mask", "img": "1f637" }, { "n": "Liar", "img": "1f925" }, { "n": "Halo", "img": "1f607" }, { "n": "Cowboy", "img": "1f920" }, { "n": "Money-face", "img": "1f911" }, { "n": "Nerd-face", "img": "1f913" }, { "n": "Sunglasses-face", "img": "1f60e" }, { "n": "Disguise", "img": "1f978" }, { "n": "Clown", "img": "1f921" }, { "n": "Imp-smile", "img": "1f608" }, { "n": "Imp-frown", "img": "1f47f" }, { "n": "Ghost", "img": "1f47b" }, { "n": "Skull", "img": "1f480" }, { "n": "Jack-o-lantern", "img": "1f383" }, { "n": "Poop", "img": "1f4a9" }, { "n": "Robot", "img": "1f916" }, { "n": "Alien", "img": "1f47d" }, { "n": "Sun-with-face", "img": "1f31e" }, { "n": "Moon-face-first-quarter", "img": "1f31b" }, { "n": "Moon-face-last-quarter", "img": "1f31c" }, { "n": "See-no-evil-monkey", "img": "1f648" }, { "n": "Hear-no-evil-monkey", "img": "1f649" }, { "n": "Speak-no-evil-monkey", "img": "1f64a" }, { "n": "Smiley-cat", "img": "1f63a" }, { "n": "Smile-cat", "img": "1f638" }, { "n": "Joy-cat", "img": "1f639" }, { "n": "Heart-eyes-cat", "img": "1f63b" }, { "n": "Smirk-cat", "img": "1f63c" }, { "n": "Kissing-cat", "img": "1f63d" }, { "n": "Scream-cat", "img": "1f640" }, { "n": "Crying-cat-face", "img": "1f63f" }, { "n": "Pouting-cat", "img": "1f63e" }, { "n": "Glowing-star", "img": "1f31f" }, { "n": "Sparkles", "img": "2728" }, { "n": "Collision", "img": "1f4a5" }, { "n": "Fire", "img": "1f525" }, { "n": "100", "img": "1f4af" }, { "n": "Party-popper", "img": "1f389" }, { "n": "Red-heart", "img": "2764_fe0f" }, { "n": "Orange-heart", "img": "1f9e1" }, { "n": "Yellow-heart", "img": "1f49b" }, { "n": "Green-heart", "img": "1f49a" }, { "n": "Light-blue-heart", "img": "1fa75" }, { "n": "Blue-heart", "img": "1f499" }, { "n": "Purple-heart", "img": "1f49c" }, { "n": "Brown-heart", "img": "1f90e" }, { "n": "Black-heart", "img": "1f5a4" }, { "n": "Grey-heart", "img": "1fa76" }, { "n": "White-heart", "img": "1f90d" }, { "n": "Pink-heart", "img": "1fa77" }, { "n": "Cupid", "img": "1f498" }, { "n": "Gift-heart", "img": "1f49d" }, { "n": "Sparkling-heart", "img": "1f496" }, { "n": "Heart-grow", "img": "1f497" }, { "n": "Beating-heart", "img": "1f493" }, { "n": "Revolving-hearts", "img": "1f49e" }, { "n": "Two-hearts", "img": "1f495" }, { "n": "Love-letter", "img": "1f48c" }, { "n": "Heart-box", "img": "1f49f" }, { "n": "Heart-exclamation-point", "img": "2763_fe0f" }, { "n": "Bandaged-heart", "img": "2764_fe0f_200d_1fa79" }, { "n": "Broken-heart", "img": "1f494" }, { "n": "Fire-heart", "img": "2764_fe0f_200d_1f525" }, { "n": "Kiss", "img": "1f48b" }, { "n": "Footprints", "img": "1f463" }, { "n": "Anatomical-heart", "img": "1fac0" }, { "n": "Blood", "img": "1fa78" }, { "n": "Microbe", "img": "1f9a0" }, { "n": "Eyes", "img": "1f440" }, { "n": "Eye", "img": "1f441_fe0f" }, { "n": "Biting-lip", "img": "1fae6" }, { "n": "Leg-mechanical", "img": "1f9bf" }, { "n": "Arm-mechanical", "img": "1f9be" }, { "n": "Muscle", "img": "1f4aa" }, { "n": "Muscle", "img": "1f4aa_1f3fb" }, { "n": "Muscle", "img": "1f4aa_1f3fc" }, { "n": "Muscle", "img": "1f4aa_1f3fd" }, { "n": "Muscle", "img": "1f4aa_1f3fe" }, { "n": "Muscle", "img": "1f4aa_1f3ff" }, { "n": "Clap", "img": "1f44f" }, { "n": "Clap", "img": "1f44f_1f3fb" }, { "n": "Clap", "img": "1f44f_1f3fc" }, { "n": "Clap", "img": "1f44f_1f3fd" }, { "n": "Clap", "img": "1f44f_1f3fe" }, { "n": "Clap", "img": "1f44f_1f3ff" }, { "n": "Thumbs-up", "img": "1f44d" }, { "n": "Thumbs-up", "img": "1f44d_1f3fb" }, { "n": "Thumbs-up", "img": "1f44d_1f3fc" }, { "n": "Thumbs-up", "img": "1f44d_1f3fd" }, { "n": "Thumbs-up", "img": "1f44d_1f3fe" }, { "n": "Thumbs-up", "img": "1f44d_1f3ff" }, { "n": "Thumbs-down", "img": "1f44e" }, { "n": "Thumbs-down", "img": "1f44e_1f3fb" }, { "n": "Thumbs-down", "img": "1f44e_1f3fc" }, { "n": "Thumbs-down", "img": "1f44e_1f3fd" }, { "n": "Thumbs-down", "img": "1f44e_1f3fe" }, { "n": "Thumbs-down", "img": "1f44e_1f3ff" }, { "n": "Raising-hands", "img": "1f64c" }, { "n": "Raising-hands", "img": "1f64c_1f3fb" }, { "n": "Raising-hands", "img": "1f64c_1f3fc" }, { "n": "Raising-hands", "img": "1f64c_1f3fd" }, { "n": "Raising-hands", "img": "1f64c_1f3fe" }, { "n": "Raising-hands", "img": "1f64c_1f3ff" }, { "n": "Wave", "img": "1f44b" }, { "n": "Wave", "img": "1f44b_1f3fb" }, { "n": "Wave", "img": "1f44b_1f3fc" }, { "n": "Wave", "img": "1f44b_1f3fd" }, { "n": "Wave", "img": "1f44b_1f3fe" }, { "n": "Wave", "img": "1f44b_1f3ff" }, { "n": "Victory", "img": "270c_fe0f" }, { "n": "Victory", "img": "270c_1f3fb" }, { "n": "Victory", "img": "270c_1f3fc" }, { "n": "Victory", "img": "270c_1f3fd" }, { "n": "Victory", "img": "270c_1f3fe" }, { "n": "Victory", "img": "270c_1f3ff" }, { "n": "Crossed-fingers", "img": "1f91e" }, { "n": "Crossed-fingers", "img": "1f91e_1f3fb" }, { "n": "Crossed-fingers", "img": "1f91e_1f3fc" }, { "n": "Crossed-fingers", "img": "1f91e_1f3fd" }, { "n": "Crossed-fingers", "img": "1f91e_1f3fe" }, { "n": "Crossed-fingers", "img": "1f91e_1f3ff" }, { "n": "Index-finger", "img": "261d_fe0f" }, { "n": "Index-finger", "img": "261d_1f3fb" }, { "n": "Index-finger", "img": "261d_1f3fc" }, { "n": "Index-finger", "img": "261d_1f3fd" }, { "n": "Index-finger", "img": "261d_1f3fe" }, { "n": "Index-finger", "img": "261d_1f3ff" }, { "n": "Folded-hands", "img": "1f64f" }, { "n": "Folded-hands", "img": "1f64f_1f3fb" }, { "n": "Folded-hands", "img": "1f64f_1f3fc" }, { "n": "Folded-hands", "img": "1f64f_1f3fd" }, { "n": "Folded-hands", "img": "1f64f_1f3fe" }, { "n": "Folded-hands", "img": "1f64f_1f3ff" }, { "n": "Aries", "img": "2648" }, { "n": "Taurus", "img": "2649" }, { "n": "Gemini", "img": "264a" }, { "n": "Cancer", "img": "264b" }, { "n": "Leo", "img": "264c" }, { "n": "Virgo", "img": "264d" }, { "n": "Libra", "img": "264e" }, { "n": "Scorpio", "img": "264f" }, { "n": "Sagittarius", "img": "2650" }, { "n": "Capricorn", "img": "2651" }, { "n": "Aquarius", "img": "2652" }, { "n": "Pisces", "img": "2653" }, { "n": "Ophiuchus", "img": "26ce" }, { "n": "Exclamation", "img": "2757" }, { "n": "Question", "img": "2753" }, { "n": "Exclamation-question-mark", "img": "2049_fe0f" }, { "n": "Exclamation-double", "img": "203c_fe0f" }, { "n": "Cross-mark", "img": "274c" }, { "n": "Sos", "img": "1f198" }, { "n": "Phone-off", "img": "1f4f4" }, { "n": "Check-mark", "img": "2705" }, { "n": "New", "img": "1f195" }, { "n": "Free", "img": "1f193" }, { "n": "Up!", "img": "1f199" }, { "n": "Cool", "img": "1f192" }, { "n": "Litter", "img": "1f6ae" }, { "n": "Musical-notes", "img": "1f3b6" }, { "n": "Plus-sign", "img": "2795" }, { "n": "Construction", "img": "1f6a7" }, { "n": "Police-car-light", "img": "1f6a8" }, { "n": "Bicycle", "img": "1f6b2" }, { "n": "Flying-saucer", "img": "1f6f8" }, { "n": "Rocket", "img": "1f680" }, { "n": "Airplane-departure", "img": "1f6eb" }, { "n": "Airplane-arrival", "img": "1f6ec" }, { "n": "Roller-coaster", "img": "1f3a2" }, { "n": "Camping", "img": "1f3d5_fe0f" }];
         document.addEventListener('DOMContentLoaded', () => {
             const emojiGrid = document.getElementById('emojiGrid');
-    const searchInput = document.getElementById('emojiSearch'); // Get the search input element
-    const outputSize = document.getElementById('outputSize');
+            const searchInput = document.getElementById('emojiSearch'); // Get the search input element
+            const outputSize = document.getElementById('outputSize');
 
             function populateGrid(filteredEmojis) {
                 emojiGrid.innerHTML = ''; // Clear the grid
                 filteredEmojis.forEach(emoji => {
                     const img = document.createElement('img');
-                    img.src = "https://fonts.gstatic.com/s/e/notoemoji/latest/"+ emoji.img + "/emoji.svg";
+                    img.src = "https://fonts.gstatic.com/s/e/notoemoji/latest/" + emoji.img + "/emoji.svg";
                     img.alt = emoji.n;
                     img.title = emoji.n;
                     img.classList.add('emoji-button');
                     img.width = 64;
                     img.height = 64;
+
+                    img.setAttribute("draggable", true);
 
                     img.onmouseenter = () => img.src = img.src.replace('emoji.svg', '512.webp');
                     img.onmouseleave = () => img.src = img.src.replace('512.webp', 'emoji.svg');
@@ -122,25 +142,46 @@
                         parent.postMessage({ pluginMessage: { type: 'add-emoji', imageUrl: gifUrl, size: size, name: emoji.n } }, '*');
                     };
 
+                    img.addEventListener("dragend", (e) => {
+            // Don't proceed if the item was dropped inside the plugin window.
+            if (e.view.length === 0) return;
+
+            window.parent.postMessage(
+              {
+                pluginDrop: {
+                  clientX: e.clientX,
+                  clientY: e.clientY,
+                  items: [
+                    { type: "text/plain", data: e.target.src },
+                  ],
+                  dropMetadata: { name: emoji.n, size: parseInt(document.getElementById('outputSize').value)},
+                },
+              },
+              "*",
+            );
+          });
+
+
                     emojiGrid.appendChild(img);
                 });
             }
 
             function filterEmojis() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const filteredEmojis = emojis.filter(emoji => emoji.n.toLowerCase().includes(searchTerm));
-        populateGrid(filteredEmojis);
-    }
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredEmojis = emojis.filter(emoji => emoji.n.toLowerCase().includes(searchTerm));
+                populateGrid(filteredEmojis);
+            }
 
-    // Attach an input event listener to the search input for real-time filtering
-    searchInput.addEventListener('input', filterEmojis);
+            // Attach an input event listener to the search input for real-time filtering
+            searchInput.addEventListener('input', filterEmojis);
 
-    // Attach a change event listener to the outputSize select dropdown
-    outputSize.addEventListener('change', filterEmojis);
+            // Attach a change event listener to the outputSize select dropdown
+            outputSize.addEventListener('change', filterEmojis);
 
-    // Initial population of the grid with all emojis
-    populateGrid(emojis);
-});
+            // Initial population of the grid with all emojis
+            populateGrid(emojis);
+        });
     </script>
 </body>
+
 </html>
