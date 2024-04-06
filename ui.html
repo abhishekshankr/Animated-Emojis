@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emoji Plugin</title>
+    <style>
+        /* Simple styling for the button */
+        .emoji-button {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .emoji-button:hover {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f600/emoji.svg" alt="Emoji Button" title="Smile" class="emoji-button" id="emojiButton" width="64px" height="64px"/>
+
+    <script>
+        const button = document.getElementById('emojiButton');
+        button.onmouseenter = () => {
+            button.src = 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f600/512.webp'; // Change to animated .webp on hover
+        };
+        button.onmouseleave = () => {
+            button.src = 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f600/emoji.svg'; // Change back to .svg when not hovered
+        };
+        button.onclick = () => {
+            // Send a message to the plugin controller (TypeScript) when the button is clicked
+            parent.postMessage({ pluginMessage: { type: 'add-emoji' } }, '*');
+        };
+    </script>
+</body>
+</html>
