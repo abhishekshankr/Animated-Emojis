@@ -5,7 +5,7 @@
     <style>
         body {
             margin: 0;
-            font-family: Inter;
+            font-family: Inter, sans-serif;
             font-weight: 500;
             font-size: 14px;
             display: flex;
@@ -17,18 +17,19 @@
             grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
             gap: 16px;
             padding: 16px 24px;
-            max-height: 540px;
+            max-height: 542px;
             overflow-y: auto;
         }
 
         #emojiGrid::-webkit-scrollbar-track {
-            background-color: #f0f0f0;
+            background-color: #ffffff;
             border-radius: 10px;
         }
 
         #emojiGrid::-webkit-scrollbar-thumb {
             background-color: #c0c0c0;
             border-radius: 10px;
+            border: 4px solid #ffffff;
         }
 
         #emojiGrid::-webkit-scrollbar-thumb:hover {
@@ -36,7 +37,7 @@
         }
 
         #emojiGrid::-webkit-scrollbar {
-            width: 8px;
+            width: 16px;
         }
 
         .emoji-button {
@@ -64,7 +65,7 @@
         }
 
         #searchBar input[type="text"] {
-            font-family: Inter;
+            font-family: Inter, sans-serif;
             font-size: 16px;
             margin: 16px;
             padding: 8px 16px;
@@ -77,13 +78,13 @@
         }
 
         label {
-            font-family: Inter;
+            font-family: Inter, sans-serif;
             font-size: 12px;
             color: #636363;
         }
 
         #outputSize {
-            font-family: Inter;
+            font-family: Inter, sans-serif;
             font-size: 14px;
             margin: 8px;
         }
@@ -96,7 +97,7 @@
         }
 
         #sizeSelector select {
-            font-family: Inter;
+            font-family: Inter, sans-serif;
             font-size: 14px;
             padding: 8px 8px;
             border: 1px solid #ddd;
@@ -139,7 +140,7 @@
             background-color: white;
             cursor: pointer;
             margin-right: 4px;
-            font-family: Inter;
+            font-family: Inter, sans-serif;
             font-size: 14px;
         }
 
@@ -250,7 +251,7 @@
             <input type="text" id="emojiSearch" placeholder="Search for an emoji...">
         </div>
         <div id="sizeSelector">
-            <label for="outputSize">Output Size:</label>
+            <label for="outputSize">GIF Dimensions</label>
             <select id="outputSize">
                 <option value=32>32px</option>
                 <option value=48>48px</option>
@@ -281,8 +282,7 @@
     <div id="animatedEmojiSection">
         <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f496/512.webp" alt="Sparkling Heart Emoji"
             id="featuredEmoji">
-        <p><a href="https://googlefonts.github.io/noto-emoji-animation/" target="_blank">Animated Noto Emoji</a> by
-            Google CC 4.0</p>
+        <p>Emojis sourced from <a href="https://googlefonts.github.io/noto-emoji-animation/" target="_blank">Animated Noto Emoji</a></p>
     </div>
 
     <script>
@@ -346,11 +346,12 @@
              
                         container.appendChild(img);
 
+                        
                         // Create a text element for the emoji's name
-                        const emojiName = document.createElement('p');
+                        /*const emojiName = document.createElement('p');
                         emojiName.textContent = emoji.n.replace(/-/g, ' ');
                         emojiName.classList.add('emoji-name');
-                        container.appendChild(emojiName);
+                        container.appendChild(emojiName);*/
 
 
                         container.onclick = () => {

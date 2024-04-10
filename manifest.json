@@ -15,6 +15,6 @@
     "allowedDomains": [
       "https://fonts.gstatic.com/s/e/notoemoji/"
     ],
-    "reasoning": "Testing"
+    "reasoning": "Plugins needs to fetch emoji data from Google Fonts"
   }
 }
