@@ -28,9 +28,6 @@ function createAndPositionShape(imageData: Uint8Array, msg: { size: number; name
     }
 
     positionShapeInViewport(shape, msg.size);
-    figma.currentPage.appendChild(shape);
-    figma.currentPage.selection = [shape];
-    figma.viewport.scrollAndZoomIntoView([shape]);
 }
 
 function createRectangle(imageData: Uint8Array, msg: { size: number; name: string }): RectangleNode {
@@ -52,10 +49,25 @@ function createGif(imageData: Uint8Array, msg: { size: number; name: string }): 
 }
 
 function positionShapeInViewport(shape: SceneNode, size: number) {
-    const centerX = figma.viewport.center.x - (size / 2);
-    const centerY = figma.viewport.center.y - (size / 2);
-    shape.x = centerX;
-    shape.y = centerY;
+    let targetX;
+    let targetY;
+
+    if (figma.currentPage.selection.length > 0 && figma.currentPage.selection[0].type === 'FRAME') {
+        const selectedFrame = figma.currentPage.selection[0] as FrameNode;
+        targetX = selectedFrame.width / 2 - (size / 2);
+        targetY = selectedFrame.height / 2 - (size / 2);
+        shape.x = targetX;
+        shape.y = targetY;
+        selectedFrame.appendChild(shape);
+    } else {
+        const centerX = figma.viewport.center.x - (size / 2);
+        const centerY = figma.viewport.center.y - (size / 2);
+        shape.x = centerX;
+        shape.y = centerY;
+        figma.currentPage.appendChild(shape);
+    }
+    figma.currentPage.selection = [shape];
+    figma.viewport.scrollAndZoomIntoView([shape]);
 }
 
 export { handleMessage };
